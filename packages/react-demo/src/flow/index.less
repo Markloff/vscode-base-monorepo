@@ -1,0 +1,82 @@
+//
+//.mod_join_line {
+//	width: 30px;
+//	.arc {
+//		width: 30px;
+//		height: 30px;
+//	}
+//
+//	.line {
+//		width: 2px;
+//		height: 30px;
+//		background: rgb(231,232,233);
+//		float: right;
+//	}
+//	.right_top {
+//		background: radial-gradient( circle at 0 30px, transparent 27px, rgb(231,232,233) 29px, transparent 30px );
+//	}
+//
+//	.right_bottom {
+//		background: radial-gradient( circle at 0 0, transparent 27px, rgb(231,232,233) 29px, transparent 30px );
+//	}
+//	.left_top {
+//		background: radial-gradient( circle at 30 30px, transparent 27px, rgb(231,232,233) 29px, transparent 30px );
+//	}
+//	.left_bottom {
+//		background: radial-gradient( circle at 30px 0, transparent 27px, rgb(231,232,233) 29px, transparent 30px );
+//	}
+//
+//}
+
+p {
+	margin: 0;
+}
+.mod_pipe_line {
+	display: flex;
+	margin: 20px;
+	padding: 20px;
+	background: rgb(251, 251, 251);
+}
+.mod_pipe_line__inner {
+	display: flex;
+	align-items: start;
+	margin: auto;
+}
+.mod_stage {
+	min-width: 240px;
+}
+.mod_icon {
+	margin-right: 5px;
+}
+.mod_time {
+	margin-left: auto;
+}
+.mod_job {
+	display: flex;
+	align-items: center;
+	width: 80%;
+	border: 1px solid rgb(229, 230, 231);
+	padding: 10px 40px 10px 10px;
+	height: 40px;
+	border-radius: 20px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.stage_title {
+	font-weight: bolder;
+}
+.mod_join_line {
+	stroke: #c3cdd7;
+	fill: none;
+	stroke-width: 2;
+	position: absolute;
+	top: 50%;
+}
+
+.mod_join_line_right {
+	left: 100%;
+}
+
+.mod_join_line_left {
+	left: 0;
+}

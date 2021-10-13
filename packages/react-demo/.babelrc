@@ -1,0 +1,37 @@
+{
+	"presets": [
+		["@babel/preset-env",
+			{
+				"modules": false,
+				"targets": {
+					"browsers": ["last 2 versions", "IE >= 9", "Safari >= 7", "Chrome >= 53"]
+				},
+				"useBuiltIns": "usage",
+				"corejs": 3
+			}
+		],
+		"@babel/preset-typescript",
+		"@babel/preset-react"
+	],
+	"plugins": [
+		"@babel/plugin-proposal-export-default-from",
+		"@babel/plugin-proposal-export-namespace-from",
+		"@babel/plugin-proposal-json-strings",
+		"@babel/plugin-proposal-object-rest-spread",
+		"@babel/plugin-proposal-optional-chaining",
+		"@babel/plugin-transform-async-to-generator",
+		"babel-plugin-syntax-dynamic-import",
+		"babel-plugin-parameter-decorator",
+		"@babel/plugin-transform-runtime",
+		[
+			"@babel/plugin-proposal-decorators",
+			{
+				"legacy": true
+			}
+		],
+		[
+			"@babel/plugin-proposal-class-properties",
+			{ "loose": true }
+		]
+	]
+}
