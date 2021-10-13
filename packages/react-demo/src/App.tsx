@@ -1,12 +1,14 @@
 import React from 'react';
 import { Pipeline, Stage } from '@/flow/Pipeline';
 import 'reflect-metadata';
-import { createDecorator } from '@tencent/qmfe-ts-core';
 import {
 	InstantiationService,
 	ServiceCollection,
 	SyncDescriptor,
-} from '@tencent/qmfe-ts-core';
+	getSingletonServiceDescriptors,
+	createDecorator,
+	ServiceIdentifier,
+} from 'vscode-base';
 
 
 const stages: Stage[] = [
@@ -93,6 +95,27 @@ class Service2 implements IService2 {
 }
 
 
+class Application {
+	private readonly instantiationService: InstantiationService;
+
+	constructor() {
+		this.instantiationService = this.initService();
+	}
+
+	initService(): InstantiationService {
+		const serviceCollection = new ServiceCollection();
+
+		for (const [id, descriptor] of getSingletonServiceDescriptors()) {
+			serviceCollection.set(id, descriptor);
+		}
+		return new InstantiationService(serviceCollection, true);
+	}
+
+	getService<T>(id: ServiceIdentifier<T>): T {
+		return this.instantiationService.invokeFunction(accessor => accessor.get(id));
+	}
+
+}
 interface IService3 {
 
 	log(): void;

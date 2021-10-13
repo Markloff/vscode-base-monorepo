@@ -1,6 +1,6 @@
 {
 	"name": "vscode-base",
-	"version": "0.2.0",
+	"version": "0.0.1",
 	"description": "",
 	"license": "MIT",
 	"main": "lib/index.js",
@@ -10,13 +10,6 @@
 		"build": "gulp -p",
 		"watch": "tsc -w & tsc-alias -w",
 		"pub": "npm publish"
-	},
-	"publishConfig": {
-		"registry": "https://mirrors.tencent.com/npm"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://git.woa.com/chenghancai/qqmusic-helper.git"
 	},
 	"devDependencies": {
 		"@types/mocha": "^8.2.2",
@@ -50,6 +43,5 @@
 			"jsdom-global/register"
 		],
 		"ui": "bdd"
-	},
-	"gitHead": "6dfa56e947098ec20440ad02f09e8e5f621fc68f"
+	}
 }

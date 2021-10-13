@@ -12,7 +12,7 @@
 		"react": "17.0.1",
 		"react-dom": "17.0.1",
 		"react-router-dom": "5.2.0",
-		"@tencent/qmfe-ts-core": "0.2.0",
+		"vscode-base": "0.0.1",
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {

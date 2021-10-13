@@ -1425,11 +1425,6 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@tencent/qmfe-ts-core@0.2.0":
-  version "0.2.0"
-  resolved "https://mirrors.tencent.com/npm/@tencent/qmfe-ts-core/-/@tencent/qmfe-ts-core-0.2.0.tgz#940dd4e0ef47c70cdf7beec41e73e27ec399a26b"
-  integrity sha512-fwiBR8ebKLwGq0u8D0vg2eku5qUKTyfn00t+ZF93/yCcb3gcb9tAP6hyB0q6w1QxHLpbXRkoxw76nRUWxBNbuA==
-
 "@types/css-modules-loader-core@^1.1.0":
   version "1.1.0"
   resolved "http://mirrors.tencent.com/npm/@types%2fcss-modules-loader-core/-/css-modules-loader-core-1.1.0.tgz#67af15aa16603ac2ffc1d3a7f08547ac809c3005"
