@@ -732,6 +732,32 @@ export class DebounceEmitter<T> extends PauseableEmitter<T> {
 	}
 }
 
+export class MicrotaskEmitter<T> extends Emitter<T> {
+	private _queuedEvents: T[] = [];
+	private _mergeFn?: (input: T[]) => T;
+
+	constructor(options?: EmitterOptions & { merge?: (input: T[]) => T; }) {
+		super(options);
+		this._mergeFn = options?.merge;
+	}
+
+	override fire(event: T): void {
+		this._queuedEvents.push(event);
+		if (this._queuedEvents.length === 1) {
+			queueMicrotask(() => {
+				if (this._mergeFn) {
+					super.fire(this._mergeFn(this._queuedEvents));
+				} else {
+					this._queuedEvents.forEach(e => super.fire(e));
+				}
+				this._queuedEvents = [];
+			});
+		}
+	}
+
+
+}
+
 export class EventMultiplexer<T> implements IDisposable {
 
 	private readonly emitter: Emitter<T>;

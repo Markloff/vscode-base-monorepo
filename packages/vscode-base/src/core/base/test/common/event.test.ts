@@ -4,7 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 import { suite, test, setup } from 'mocha';
 import  assert from 'assert';
-import { Event, Emitter, AsyncEmitter, IWaitUntil, EventBufferer, EventMultiplexer, PauseableEmitter, Relay, DebounceEmitter } from '@/core/base/common/event';
+import {
+	Event,
+	Emitter,
+	AsyncEmitter,
+	IWaitUntil,
+	EventBufferer,
+	EventMultiplexer,
+	PauseableEmitter,
+	Relay,
+	DebounceEmitter,
+	MicrotaskEmitter,
+} from '@/core/base/common/event';
 import { IDisposable, DisposableStore } from '@/core/base/common/lifecycle';
 import { errorHandler, setUnexpectedErrorHandler } from '@/core/base/common/errors';
 import { timeout } from '@/core/base/common/async';
@@ -273,6 +284,28 @@ suite('Event', function () {
 
 		assert.strictEqual(callCount, 1);
 		assert.strictEqual(sum, 3);
+	});
+
+	test('Microtask Emitter', (done) => {
+		let count = 0;
+		assert.strictEqual(count, 0);
+		const emitter = new MicrotaskEmitter<void>();
+		const listener = emitter.event(() => {
+			count ++;
+		});
+		emitter.fire();
+		assert.strictEqual(count, 0);
+		emitter.fire();
+		assert.strictEqual(count, 0);
+		setTimeout(() => {
+			assert.strictEqual(count, 3);
+			done();
+		}, 0);
+		queueMicrotask(() => {
+			assert.strictEqual(count, 2);
+			count++;
+			listener.dispose();
+		});
 	});
 
 	test('Emitter - In Order Delivery', function () {
