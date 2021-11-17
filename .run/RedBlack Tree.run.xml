@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RedBlack Tree" type="mocha-javascript-test-runner" nameIsGenerated="true">
+    <node-interpreter>project</node-interpreter>
+    <node-options />
+    <mocha-package>$PROJECT_DIR$/packages/vscode-base/node_modules/mocha</mocha-package>
+    <working-directory>$PROJECT_DIR$/packages/vscode-base</working-directory>
+    <pass-parent-env>true</pass-parent-env>
+    <envs>
+      <env name="TS_NODE_PROJECT" value="tsconfig.test.json" />
+    </envs>
+    <ui>bdd</ui>
+    <extra-mocha-options>--require ts-node/register</extra-mocha-options>
+    <test-kind>SUITE</test-kind>
+    <test-file>$PROJECT_DIR$/packages/vscode-base/src/core/base/test/common/tree.test.ts</test-file>
+    <test-names>
+      <name value="RedBlack Tree" />
+    </test-names>
+    <method v="2" />
+  </configuration>
+</component>

@@ -383,7 +383,155 @@ export class AVLTree<T> extends BinarySearchTree<T> {
 
 }
 
+enum Colors {
+	Red = 0,
+	Black
+}
+
+export class RedBlackTreeNode<T> {
+
+	static Undefined = new RedBlackTreeNode<any>(undefined);
+
+	public left: RedBlackTreeNode<T>;
+	public right: RedBlackTreeNode<T>;
+	public parent: RedBlackTreeNode<T>;
+	public color: number;
+
+	constructor(public element: T) {
+		this.left = RedBlackTreeNode.Undefined;
+		this.right = RedBlackTreeNode.Undefined;
+		this.parent = RedBlackTreeNode.Undefined;
+		this.color = Colors.Red;
+	}
+
+	public flipColors(): void {
+		this.color = 1 ^ this.color;
+	}
+
+	public isRed(): boolean {
+		return this.color === Colors.Red;
+	}
+
+}
+
+export class RedBlackTree<T> extends BinarySearchTree<T> {
+	protected override root: RedBlackTreeNode<T>;
+	constructor(protected override compareFn: ICompareFunction<T> = defaultCompare) {
+		super(compareFn);
+		this.root = RedBlackTreeNode.Undefined;
+	}
+
+	/**
+	 * 重写insert方法:
+	 *   1. 插入节点后给节点应用一种颜色
+	 *   2. 验证树是否满足红黑树的条件以及是否还是自平衡的
+	 * @param element
+	 */
+	override insert(element: T): IDisposable {
+		this.root = this._insertNode(this.root, element);
+		this.root.color = Colors.Black;
+		let hasRemoved = false;
+		return toDisposable(() => {
+			if (!hasRemoved) {
+				this._removeNode(this.root, element);
+			}
+		})
+	}
+
+	override _insertNode(node: RedBlackTreeNode<T>, element: T): RedBlackTreeNode<T> {
+		if (node === RedBlackTreeNode.Undefined) {
+			node = new RedBlackTreeNode<T>(element);
+			node.color = Colors.Red;
+			return node;
+		}
+		// 当前插入element小于当前节点的element
+		if (this.compareFn(element, node.element) === Compare.LESS_THAN) {
+			node.left = this._insertNode(node.left, element);
+		} else if (this.compareFn(element, node.element) === Compare.BIGGER_THAN) {
+			node.right = this._insertNode(node.right, element);
+		} else {
+			node.element = element;
+		}
+		return this._keepBalance(node);
+	}
+
+	private _isRed(node: RedBlackTreeNode<T>): boolean {
+		if (node === RedBlackTreeNode.Undefined) {
+			return false;
+		}
+		return node.isRed();
+	}
+
+	private _flipColors(node: RedBlackTreeNode<T>): void {
+		node.flipColors();
+		node.left.flipColors();
+		node.right.flipColors();
+	}
+
+	private _keepBalance(node: RedBlackTreeNode<T>): RedBlackTreeNode<T> {
+		if (this._isRed(node.right) && !this._isRed(node.left)) {
+			node = this._rotationLL(node);
+		}
+		if (this._isRed(node.left) && this._isRed(node.left?.left)) {
+			node = this._rotationRR(node);
+		}
+		if (this._isRed(node.left) && this._isRed(node.right)) {
+			this._flipColors(node);
+		}
+		return node;
+	}
+
+	public delete(element: T): void {
+		if (this.search(element) === Node.Undefined) return;
+
+		if (!this._isRed(this.root.left) && !this._isRed(this.root.right)) {
+			this.root.color = Colors.Red;
+		}
+		this.root = this._deleteNode(this.root, element);
+		if (this.root) {
+			this.root.color = Colors.Black;
+		}
+	}
+
+	private _deleteNode(node: RedBlackTreeNode<T>, element: T): RedBlackTreeNode<T> {
+		// if (this.compareFn(element, node.element) === Compare.LESS_THAN) {
+		// 	if (!this._isRed(node.left) && !this._isRed(node.left?.left)) {
+		// 		node = this._moveRedLeft(node);
+		// 		node.left = this._deleteNode(node.left, element);
+		// 	} else {
+		//
+		// 	}
+		// }
+		return node;
+	}
 
 
+	/**
+	 * 右旋
+	 *
+	 *       a                           c
+	 *      / \                         / \
+	 *     c   b -> rotateRight(a) ->   d   a
+	 *    / \                             / \
+	 *   d   e                           e   b
+	 *
+	 * @param node Node<T>
+	 */
+	protected _rotationRR(node: RedBlackTreeNode<T>): RedBlackTreeNode<T> {
+		const tmp = node.left;
+		node.left = tmp.right;
+		tmp.right = node;
+		tmp.color = node.color;
+		node.color = Colors.Red;
+		return tmp;
+	}
 
-
+	protected _rotationLL(node: RedBlackTreeNode<T>): RedBlackTreeNode<T> {
+		const tmp = node.right;
+		node.right = tmp.left;
+		tmp.left = node;
+		tmp.color = node.color;
+		node.color = Colors.Red;
+		return tmp;
+	}
+}
