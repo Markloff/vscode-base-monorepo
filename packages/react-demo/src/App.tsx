@@ -1,13 +1,12 @@
 import React from 'react';
 import { Pipeline, Stage } from '@/flow/Pipeline';
-import 'reflect-metadata';
 import {
 	InstantiationService,
 	ServiceCollection,
-	SyncDescriptor,
 	getSingletonServiceDescriptors,
 	createDecorator,
 	ServiceIdentifier,
+	registerSingleton
 } from 'vscode-base';
 
 
@@ -66,11 +65,14 @@ const stages: Stage[] = [
 
 
 interface IService1 {
+	readonly _serviceBrand: undefined;
+
 	log(): void;
 }
 const IService1 = createDecorator<IService1>('IService1');
 
 class Service1 implements IService1 {
+	readonly _serviceBrand: undefined;
 
 	log() {
 		console.log('Service1 执行log')
@@ -80,6 +82,7 @@ class Service1 implements IService1 {
 
 
 interface IService2 {
+	readonly _serviceBrand: undefined;
 
 	log(): void;
 }
@@ -87,6 +90,7 @@ interface IService2 {
 const IService2 = createDecorator<IService2>('IService2');
 
 class Service2 implements IService2 {
+	readonly _serviceBrand: undefined;
 
 	log() {
 		console.log('Service2 执行log')
@@ -117,30 +121,37 @@ class Application {
 
 }
 interface IService3 {
-
+	readonly _serviceBrand: undefined;
 	log(): void;
 }
 
 const IService3 = createDecorator<IService3>('IService3');
 
 class Service3 implements IService3 {
-
+	readonly _serviceBrand: undefined;
 	constructor(
 		@IService2 private readonly service2: IService2
 	) {
 
 	}
 
-	log() {
+	log(): void {
 		console.log('Service3 执行log，并且执行执行Service2的log')
 		this.service2.log();
 	}
 
 }
+
 const serviceCollection = new ServiceCollection();
-serviceCollection.set(IService1, new SyncDescriptor<IService1>(Service1));
-serviceCollection.set(IService2, new SyncDescriptor<IService2>(Service2));
-serviceCollection.set(IService3, new SyncDescriptor<IService3>(Service3));
+registerSingleton(IService1, Service1);
+registerSingleton(IService2, Service2);
+registerSingleton(IService3, Service3);
+for (const [id, descriptor] of getSingletonServiceDescriptors()) {
+	serviceCollection.set(id, descriptor);
+}
+// serviceCollection.set(IService1, new SyncDescriptor<IService1>(Service1));
+// serviceCollection.set(IService2, new SyncDescriptor<IService2>(Service2));
+// serviceCollection.set(IService3, new SyncDescriptor<IService3>(Service3));
 
 const instantiationService = new InstantiationService(serviceCollection);
 
@@ -160,17 +171,12 @@ instantiationService.invokeFunction(accessor => {
 	service3Instance.log();
 
 })
-function TestItem() {
-	return (
-		<div>
-			<Pipeline stages={stages} />
-		</div>
-	);
-}
 
 
 export default function App() {
 	return (
-		<TestItem />
+		<div>
+			aaa
+		</div>
 	);
 }
