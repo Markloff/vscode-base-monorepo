@@ -4,16 +4,9 @@
     "description": "",
     "author": "",
     "license": "UNLICENSED",
-    "scripts": {
-        "start": "lerna bootstrap",
-        "publish": "lerna publish from-git --yes"
-    },
+    "scripts": {},
     "engines": {
         "node": ">=10.0.0"
     },
-    "devDependencies": {
-        "lerna": "^4.0.0",
-        "prettier": "^2.2.1",
-        "yarn": "^1.22.10"
-    }
+    "devDependencies": {}
 }
