@@ -2,12 +2,12 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------------------------------------------*/
 
-import { CharCode } from '@/core/base/common/charCode';
-import { Position } from 'vs/editor/common/core/position';
-import { Range } from 'vs/editor/common/core/range';
-import { FindMatch, ITextSnapshot } from 'vs/editor/common/model';
-import { NodeColor, SENTINEL, TreeNode, fixInsert, leftest, rbDelete, righttest, updateTreeMetadata } from 'vs/editor/common/model/pieceTreeTextBuffer/rbTreeBase';
-import { SearchData, Searcher, createFindMatch, isValidMatch } from 'vs/editor/common/model/textModelSearch';
+import { Range } from '@/editor/common/core/range';
+import { FindMatch, ITextSnapshot } from '@/editor/common/model';
+import { NodeColor, SENTINEL, TreeNode, fixInsert, leftest, rbDelete, righttest, updateTreeMetadata } from '@/editor/common/model/pieceTreeTextBuffer/rbTreeBase';
+import { SearchData, Searcher, createFindMatch, isValidMatch } from '@/editor/common/model/textModelSearch';
+import { Position } from '@/editor/common/core/position';
+import { CharCode } from '@/core/base/common/CharCode';
 
 // const lfRegex = new RegExp(/\r\n|\r|\n/g);
 export const AverageBufferSize = 65535;

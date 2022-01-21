@@ -100,3 +100,11 @@ export function canceled(): Error {
 export function isPromiseCanceledError(error: any): boolean {
 	return error instanceof Error && error.name === canceledName && error.message === canceledName;
 }
+
+
+export interface SerializedError {
+	readonly $isError: true;
+	readonly name: string;
+	readonly message: string;
+	readonly stack: string;
+}
