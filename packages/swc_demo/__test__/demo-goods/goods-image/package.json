@@ -1,0 +1,9 @@
+{
+	"private": true,
+	"description": "本文件仅用于 Extension 的依赖管理，请勿添加其他配置。详细介绍：https://fedoc.qima-inc.com/biz-engine/guides/basic/extension-npm",
+	"dependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git@gitlab.qima-inc.com:fe-middle-platform/tee-demo-playground-goods.git"
+	}
+}

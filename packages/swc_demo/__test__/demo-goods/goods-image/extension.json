@@ -1,0 +1,29 @@
+{
+  "name": "@tee-demo-goods/goods-image-block",
+  "extensionId": "@tee-demo-goods/goods-image-block",
+  "pathInBundle": "goods-image-block",
+  "platform": ["weapp", "web"],
+	"extends": {
+
+	},
+  "widget": {
+    "provide": ["GoodsImageWidget", "Main", "GoodsTitle"]
+  },
+  "component": {
+    "provide": ["GoodsImageComponent"]
+  },
+  "description": "商品大图模块",
+  "version": "3.1.0",
+  "data": {
+    "consume": {
+      "imgList": ["r"]
+    }
+  },
+  "process": {
+    "invoke": ["getShopInfo"]
+  },
+  "event": {
+    "emit": ["clickImage"]
+  }
+}
+

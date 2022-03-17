@@ -1,0 +1,28 @@
+{
+	"name": "@tee-demo-goods/retail-goods-image-block",
+	"extensionId": "@tee-demo-goods/retail-goods-image-block",
+	"pathInBundle": "goods-image-block",
+	"platform": [
+		"weapp",
+		"web"
+	],
+	"extends": {
+		"name": "",
+		"version": "3.0",
+		"isRemote": false
+	},
+	"widget": {
+		"provide": []
+	},
+	"component": {
+		"provide": []
+	},
+	"description": "零售商品大图模块",
+	"version": "3.1.0",
+	"data": {
+	},
+	"process": {
+	},
+	"event": {
+	}
+}

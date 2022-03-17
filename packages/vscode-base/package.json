@@ -8,6 +8,7 @@
 	"scripts": {
 		"test": "cross-env TS_NODE_PROJECT='./tsconfig.test.json' mocha ./src/**/**.test.ts",
 		"build": "gulp -p",
+		"tsc-build": "rm -rf ./lib && tsc && tsc-alias",
 		"watch": "tsc -w & tsc-alias -w",
 		"pub": "npm publish"
 	},
